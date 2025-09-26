@@ -15,9 +15,7 @@ import jakarta.servlet.http.HttpSession;
 
 public class LoginJDBC {
 	
-	private static final String url = "jdbc:mysql://localhost:3306/rusi";
-	private static final String username = "root";
-	private static final String password = "Steffin@2005";
+	
 	
 	public boolean exist(User user) throws SQLException, ClassNotFoundException {
 		boolean result=false;
