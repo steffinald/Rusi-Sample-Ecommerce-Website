@@ -22,7 +22,7 @@ public class LoginJDBC {
 		
 		Connection con = DBUtil.getConnection();
 
-	    	String query = "Select * from customer where mobilenumber=?";
+	    	String query = "Select * from customers where mobilenumber=?";
 	    	 
 	    	
 	    	PreparedStatement pst = con.prepareStatement(query);
@@ -47,8 +47,8 @@ public class LoginJDBC {
 		
 		Connection con = DBUtil.getConnection();
 
-	    	String query1 = "Insert into customer (MobileNumber) values (?)";
-	    	String query2 = "Insert into customerdetials (mobilenumber) values (?)";
+	    	String query1 = "Insert into customers (mobilenumber) values (?)";
+	    	String query2 = "Insert into customer_detials (mobilenumber) values (?)";
 	    	PreparedStatement pst2 = null;
 	    	PreparedStatement pst1 = con.prepareStatement(query1);
 	    	pst1.setString(1, user.getMobileNumber());
@@ -76,7 +76,7 @@ public String read(User user) throws SQLException, ClassNotFoundException {
 		Connection con = DBUtil.getConnection();
 
 		
-	    	String query ="select * from customer where mobilenumber=?";
+	    	String query ="select * from customers where mobilenumber=?";
 	    	
 	    	PreparedStatement pst = con.prepareStatement(query);
 	    	pst.setString(1, user.getMobileNumber());
@@ -95,7 +95,7 @@ public boolean productinsert(String barcode,String productname,int price,int dis
 	
 	Connection con = DBUtil.getConnection();
 
-    	String query = "Insert into product (barcode,Name,product_price,discount_price,points,product_categry,image,product_description) values (?,?,?,?,?,?,?,?)";
+    	String query = "Insert into products (barcode,name,product_price,discount_price,points,product_categry,image,product_description) values (?,?,?,?,?,?,?,?)";
  
     	
     	PreparedStatement pst = con.prepareStatement(query);
@@ -123,7 +123,7 @@ public boolean productinsert(String barcode,String productname,int price,int dis
 		System.out.println("Fetching products from DB...");
 		Connection con = DBUtil.getConnection();
 
-		String query = "SELECT * FROM product;";
+		String query = "SELECT * FROM products;";
     	
     	 Statement stmt = con.createStatement();
          ResultSet rs = stmt.executeQuery(query);
@@ -133,7 +133,7 @@ public boolean productinsert(String barcode,String productname,int price,int dis
 				
 			     Product p = new Product(
 			    	rs.getString("barcode"),
-			         rs.getString("Name"),
+			         rs.getString("name"),
 			         rs.getInt("product_price"),
 			         rs.getInt("discount_price"),
 			         rs.getInt("points"),
@@ -163,7 +163,7 @@ public boolean productinsert(String barcode,String productname,int price,int dis
 		
 		Connection con = DBUtil.getConnection();
 
-	    	String query = "Select * from product where barcode=?";
+	    	String query = "Select * from products where barcode=?";
 	    	PreparedStatement pst = con.prepareStatement(query);
 	    	pst.setString(1, product.getBarcode());
 	    	ResultSet rs = pst.executeQuery();
@@ -184,7 +184,7 @@ public boolean productinsert(String barcode,String productname,int price,int dis
 		boolean result=false;
 		Connection con = DBUtil.getConnection();
 
-	    	String query = "Select * from product where Name=?";
+	    	String query = "Select * from products where name=?";
 	    	
 	    	PreparedStatement pst = con.prepareStatement(query);
 	    	pst.setString(1, product.getBarcode());
@@ -207,7 +207,7 @@ public boolean productinsert(String barcode,String productname,int price,int dis
 		Connection con = DBUtil.getConnection();
 
 		
-	    	String query = "DELETE FROM product WHERE Name=?";
+	    	String query = "DELETE FROM products WHERE name=?";
 	    	PreparedStatement pst = con.prepareStatement(query);
 	    	pst.setString(1, productname);
 	    	int rowsInserted = pst.executeUpdate();
@@ -223,7 +223,7 @@ public boolean productinsert(String barcode,String productname,int price,int dis
 		
 		Connection con = DBUtil.getConnection();
 
-	    	String query = "UPDATE product SET Name=? WHERE barcode=?";
+	    	String query = "UPDATE products SET name=? WHERE barcode=?";
 	    	PreparedStatement pst = con.prepareStatement(query);
 	    	pst.setString(1, productname);
 	    	pst.setString(2, barcode);
@@ -241,7 +241,7 @@ public boolean productinsert(String barcode,String productname,int price,int dis
 		
 		Connection con = DBUtil.getConnection();
 
-	    	String query = "UPDATE product SET product_price=? WHERE barcode=?";
+	    	String query = "UPDATE products SET product_price=? WHERE barcode=?";
 	    	PreparedStatement pst = con.prepareStatement(query);
 	    	pst.setInt(1, price);
 	    	pst.setString(2, barcode);
@@ -259,7 +259,7 @@ public boolean productinsert(String barcode,String productname,int price,int dis
 		
 		Connection con = DBUtil.getConnection();
 
-	    	String query = "UPDATE product SET discount_price=? WHERE barcode=?";
+	    	String query = "UPDATE products SET discount_price=? WHERE barcode=?";
 	    	PreparedStatement pst = con.prepareStatement(query);
 	    	pst.setInt(1, discount);
 	    	pst.setString(2, barcode);
@@ -277,7 +277,7 @@ public boolean productinsert(String barcode,String productname,int price,int dis
 		
 		Connection con = DBUtil.getConnection();
 
-	    	String query = "UPDATE product SET points=? WHERE barcode=?";
+	    	String query = "UPDATE products SET points=? WHERE barcode=?";
 	    	PreparedStatement pst = con.prepareStatement(query);
 	    	pst.setInt(1, point);
 	    	pst.setString(2, barcode);
@@ -295,7 +295,7 @@ public boolean productinsert(String barcode,String productname,int price,int dis
 		
 		Connection con = DBUtil.getConnection();
 
-	    	String query = "UPDATE product SET product_categry=? WHERE barcode=?";
+	    	String query = "UPDATE products SET product_categry=? WHERE barcode=?";
 	    	PreparedStatement pst = con.prepareStatement(query);
 	    	pst.setString(1, category);
 	    	pst.setString(2, barcode);
@@ -313,7 +313,7 @@ public boolean productinsert(String barcode,String productname,int price,int dis
 		
 		Connection con = DBUtil.getConnection();
 
-	    	String query = "UPDATE product SET image=? WHERE barcode=?";
+	    	String query = "UPDATE products SET image=? WHERE barcode=?";
 	    	PreparedStatement pst = con.prepareStatement(query);
 	    	pst.setString(1, fileName);
 	    	pst.setString(2, barcode);
@@ -331,7 +331,7 @@ public boolean productinsert(String barcode,String productname,int price,int dis
 		
 		Connection con = DBUtil.getConnection();
 
-	    	String query = "UPDATE product SET product_description=? WHERE barcode=?";
+	    	String query = "UPDATE products SET product_description=? WHERE barcode=?";
 	    	PreparedStatement pst = con.prepareStatement(query);
 	    	pst.setString(1, description);
 	    	pst.setString(2, barcode);
@@ -348,7 +348,7 @@ public  Product getProductdetialbybarcode(String barcode)throws SQLException, Cl
 	Connection con = DBUtil.getConnection();
 
 		System.out.println("Fetching products from DB...");
-    	PreparedStatement pst = con.prepareStatement("SELECT * FROM product WHERE barcode=?");
+    	PreparedStatement pst = con.prepareStatement("SELECT * FROM products WHERE barcode=?");
         pst.setString(1, barcode);
         ResultSet rs = pst.executeQuery();
 
@@ -357,7 +357,7 @@ public  Product getProductdetialbybarcode(String barcode)throws SQLException, Cl
 				
 			     return new Product(
 			    	rs.getString("barcode"),
-			         rs.getString("Name"),
+			         rs.getString("name"),
 			         rs.getInt("product_price"),
 			         rs.getInt("discount_price"),
 			         rs.getInt("points"),
@@ -387,7 +387,7 @@ public  Profileclass getprofilebymobile(String mobile)throws SQLException, Class
 	System.out.println(mobile);
 	Connection con = DBUtil.getConnection();
 
-	PreparedStatement pst = con.prepareStatement("SELECT * FROM customerdetials WHERE mobilenumber=?");
+	PreparedStatement pst = con.prepareStatement("SELECT * FROM customer_detials WHERE mobilenumber=?");
     pst.setString(1, mobile);
     ResultSet rs = pst.executeQuery();
     System.out.println("it is required");
@@ -419,7 +419,7 @@ public boolean updateprofile(String name, String email, String address,String mo
 	
 	Connection con = DBUtil.getConnection();
 
-    	String query = "UPDATE customerdetials SET name=? , email=? , address=?  WHERE mobilenumber=?";
+    	String query = "UPDATE customer_detials SET name=? , email=? , address=?  WHERE mobilenumber=?";
     	PreparedStatement pst = con.prepareStatement(query);
     	pst.setString(1, name);
     	pst.setString(2, email);
