@@ -48,7 +48,7 @@ public class LoginJDBC {
 		Connection con = DBUtil.getConnection();
 
 	    	String query1 = "Insert into customers (mobilenumber) values (?)";
-	    	String query2 = "Insert into customer_detials (mobilenumber) values (?)";
+	    	String query2 = "Insert into customer_details (mobilenumber) values (?)";
 	    	PreparedStatement pst2 = null;
 	    	PreparedStatement pst1 = con.prepareStatement(query1);
 	    	pst1.setString(1, user.getMobileNumber());
@@ -95,7 +95,7 @@ public boolean productinsert(String barcode,String productname,int price,int dis
 	
 	Connection con = DBUtil.getConnection();
 
-    	String query = "Insert into products (barcode,name,product_price,discount_price,points,product_categry,image,product_description) values (?,?,?,?,?,?,?,?)";
+    	String query = "Insert into products (barcode,name,product_price,discount_price,points,product_category,image,product_description) values (?,?,?,?,?,?,?,?)";
  
     	
     	PreparedStatement pst = con.prepareStatement(query);
@@ -137,7 +137,7 @@ public boolean productinsert(String barcode,String productname,int price,int dis
 			         rs.getInt("product_price"),
 			         rs.getInt("discount_price"),
 			         rs.getInt("points"),
-			         rs.getString("product_categry"),
+			         rs.getString("product_category"),
 			         rs.getString("image"),
 			         rs.getString("product_description")
 			     );
@@ -295,7 +295,7 @@ public boolean productinsert(String barcode,String productname,int price,int dis
 		
 		Connection con = DBUtil.getConnection();
 
-	    	String query = "UPDATE products SET product_categry=? WHERE barcode=?";
+	    	String query = "UPDATE products SET product_category=? WHERE barcode=?";
 	    	PreparedStatement pst = con.prepareStatement(query);
 	    	pst.setString(1, category);
 	    	pst.setString(2, barcode);
@@ -361,7 +361,7 @@ public  Product getProductdetialbybarcode(String barcode)throws SQLException, Cl
 			         rs.getInt("product_price"),
 			         rs.getInt("discount_price"),
 			         rs.getInt("points"),
-			         rs.getString("product_categry"),
+			         rs.getString("product_category"),
 			         rs.getString("image"),
 			         rs.getString("product_description")
 			     );
@@ -387,7 +387,7 @@ public  Profileclass getprofilebymobile(String mobile)throws SQLException, Class
 	System.out.println(mobile);
 	Connection con = DBUtil.getConnection();
 
-	PreparedStatement pst = con.prepareStatement("SELECT * FROM customer_detials WHERE mobilenumber=?");
+	PreparedStatement pst = con.prepareStatement("SELECT * FROM customer_details WHERE mobilenumber=?");
     pst.setString(1, mobile);
     ResultSet rs = pst.executeQuery();
     System.out.println("it is required");
@@ -419,7 +419,7 @@ public boolean updateprofile(String name, String email, String address,String mo
 	
 	Connection con = DBUtil.getConnection();
 
-    	String query = "UPDATE customer_detials SET name=? , email=? , address=?  WHERE mobilenumber=?";
+    	String query = "UPDATE customer_details SET name=? , email=? , address=?  WHERE mobilenumber=?";
     	PreparedStatement pst = con.prepareStatement(query);
     	pst.setString(1, name);
     	pst.setString(2, email);
